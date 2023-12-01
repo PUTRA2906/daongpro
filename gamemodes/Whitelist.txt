@@ -1,0 +1,35 @@
+new DCC_Channel:g_Discord_AndroVerifed;
+
+forward DCC_OnMessageCreate(DCC_Message:message);
+
+public DCC_OnMessageCreate(DCC_Message:message)
+{
+	new realMsg[100], msg[128];
+    DCC_GetMessageContent(message, realMsg, 100);
+    new bool:IsBot;
+    new DCC_Channel:channel;
+ 	DCC_GetMessageChannel(message, channel);
+    new DCC_User:author;
+	DCC_GetMessageAuthor(message, author);
+    DCC_IsUserBot(author, IsBot);
+    if(channel == g_Discord_AndroVerifed && !IsBot)
+    {
+    	new player[200];
+    	format(player,sizeof(player),"Whitelist/%s.txt",realMsg);
+    	{
+			if(!dini_Exists(player))
+  			{
+      			dini_Create(player);
+    			format(msg, sizeof(msg), "**Account: %s Akun telah diverifikasi ke database**",realMsg);
+    			DCC_SendChannelMessage(g_Discord_AndroVerifed, msg);
+			}
+  			else
+    		{
+    			format(msg, sizeof(msg), "Akun ini Sudah **diverifikasi tadi!**");
+    			DCC_SendChannelMessage(g_Discord_AndroVerifed, msg);
+      		}
+   		}
+    }
+
+g_Discord_AndroVerifed = DCC_FindChannelById("905805208033054720");
+

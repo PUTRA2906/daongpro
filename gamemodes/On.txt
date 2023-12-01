@@ -1,0 +1,6 @@
+new DCC_Channel:g_Discord_Information;
+
+g_Discord_Information = DCC_FindChannelById("905805451520774164");
+
+OnGamemodein
+DCC_SendChannelMessage(g_Discord_Information, "```Server Sudah Kembali Online, Happy Roleplaying.``` @everyone");
